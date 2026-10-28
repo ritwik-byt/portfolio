@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ritwik Ala — Data Engineer &amp; Cloud Lakehouse Architect</title>
+  <meta name="description" content="Computer Science undergraduate specializing in Data Analytics and AWS Certified Data Engineer – Associate. Building cloud-based Medallion Lakehouses with PySpark, Databricks, Amazon S3, and Apache Airflow.">
+  <meta name="theme-color" content="#070709">
+  <meta property="og:title" content="Ritwik Ala — Data Engineer &amp; Cloud Lakehouse Architect">
+  <meta property="og:description" content="Building cloud-based Medallion Lakehouses with PySpark, Databricks, Amazon S3, and Apache Airflow.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070709'/%3E%3Ccircle cx='32' cy='32' r='10' fill='%23F59E0B'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/src/style.css">
+  <script>
+    (function () {
+      var skip = false;
+      try { skip = sessionStorage.getItem('ritwikIntroSeen') === '1'; } catch (e) {}
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) skip = true;
+      if (/[?&](intro|slowmo|at)(=|&|$)/.test(location.search)) skip = false;
+      if (!skip) document.documentElement.classList.add('intro-on');
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- ==========================================
+       10-SECOND CINEMATIC MEDALLION REFINERY INTRO
+       ========================================== -->
+  <div id="intro-overlay" role="dialog" aria-modal="true" aria-label="Medallion Refinery Ingestion Sequence">
+    <canvas id="refinery-canvas"></canvas>
+    <div id="laser-scan"></div>
+
+    <!-- TOP HUD: Gantry Cluster Sync + Medallion Lights -->
+    <div id="top-hud" class="relative z-10 flex flex-col items-center w-full transition-all duration-700 ease-in-out">
+      <div class="bg-zinc-950/90 border border-zinc-800/90 px-6 py-3.5 rounded-2xl backdrop-blur-xl shadow-2xl flex flex-col items-center">
+        <div class="flex items-center justify-between w-full gap-6 mb-3">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+            <span class="mono text-[10px] tracking-[0.24em] text-zinc-400 uppercase" id="gantry-header">
+              MEDALLION REFINERY GANTRY · CLUSTER SYNCHRONIZATION
+            </span>
+          </div>
+          <button class="mono text-[10px] tracking-widest text-zinc-400 hover:text-white uppercase transition border-b border-zinc-700" id="skipIntro" type="button">
+            Skip [ESC]
+          </button>
+        </div>
+
+        <div class="flex items-center gap-3 md:gap-6">
+          <!-- Stage 1: Bronze -->
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="flex gap-1.5 bg-zinc-900 p-2 rounded-xl border border-zinc-800">
+              <div id="l1-a" class="w-5 h-5 rounded-full border-2 border-zinc-700 bg-zinc-950 gate-light"></div>
+              <div id="l1-b" class="w-5 h-5 rounded-full border-2 border-zinc-700 bg-zinc-950 gate-light"></div>
+            </div>
+            <span class="mono text-[9px] tracking-wider text-amber-500/80">01 BRONZE</span>
+          </div>
+
+          <div class="w-4 md:w-5 h-[1px] bg-zinc-800"></div>
+
+          <!-- Stage 2: Silver -->
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="flex gap-1.5 bg-zinc-900 p-2 rounded-xl border border-zinc-800">
+              <div id="l2-a" class="w-5 h-5 rounded-full border-2 border-zinc-700 bg-zinc-950 gate-light"></div>
+              <div id="l2-b" class="w-5 h-5 rounded-full border-2 border-zinc-700 bg-zinc-950 gate-light"></div>
+            </div>
+            <span class="mono text-[9px] tracking-wider text-zinc-400">02 SILVER</span>
+          </div>
+
+          <div class="w-4 md:w-5 h-[1px] bg-zinc-800"></div>
+
+          <!-- Stage 3: Gold -->
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="flex gap-1.5 bg-zinc-900 p-2 rounded-xl border border-zinc-800">
+              <div id="l3-a" class="w-5 h-5 rounded-full border-2 border-zinc-700 bg-zinc-950 gate-light"></div>
+              <div id="l3-b" class="w-5 h-5 rounded-full border-2 border-zinc-700 bg-zinc-950 gate-light"></div>
+            </div>
+            <span class="mono text-[9px] tracking-wider text-yellow-400/80">03 GOLD</span>
+          </div>
+
+          <div class="w-4 md:w-5 h-[1px] bg-zinc-800"></div>
+
+          <!-- Stage 4: Serve Launch -->
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="flex gap-1.5 bg-zinc-900 p-2 rounded-xl border border-zinc-800">
+              <div id="l4-a" class="w-5 h-5 rounded-full border-2 border-zinc-700 bg-zinc-950 gate-light"></div>
+              <div id="l4-b" class="w-5 h-5 rounded-full border-2 border-zinc-700 bg-zinc-950 gate-light"></div>
+            </div>
+            <span class="mono text-[9px] tracking-wider text-emerald-400/80">04 SERVE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER HUD: Narrative Stage -->
+    <div id="center-hud" class="relative z-10 my-auto text-center pointer-events-none transition-all duration-700">
+      <div id="stage-pill" class="inline-flex items-center gap-2 mono text-xs uppercase tracking-[0.2em] px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 mb-4 shadow-lg">
+        STAGE 01 · INGESTING 560K+ UNSTRUCTURED RAW PAYLOADS
+      </div>
+      <h1 id="stage-headline" class="serif text-5xl md:text-8xl text-white tracking-tight leading-none">
+        Raw Data Chaos <em class="text-amber-400" id="headline-accent">to Pure Gold.</em>
+      </h1>
+      <p id="stage-sub" class="mono text-xs text-zinc-400 mt-4 tracking-wide">
+        MOVE CURSOR TO STEER CAMERA · HOLD CLICK TO OVERCLOCK PIPELINE
+      </p>
+    </div>
+
+    <!-- BOTTOM HUD: Live Spark Execution Log + Footprint Compression Gauge -->
+    <div id="bottom-hud" class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 items-end border-t border-zinc-800/80 pt-4 transition-all duration-700 ease-in-out">
+      <!-- Left: Live Spark Execution Log -->
+      <div class="bg-zinc-950/85 border border-zinc-800/90 rounded-xl p-3.5 backdrop-blur-md mono text-[11px] leading-relaxed text-zinc-400 shadow-xl">
+        <div class="flex items-center justify-between text-[10px] text-zinc-500 border-b border-zinc-800 pb-1.5 mb-2">
+          <span>SPARK-SUBMIT :: LAKEHOUSE_ENGINE.PY</span>
+          <span class="text-emerald-400">● CLUSTER ONLINE</span>
+        </div>
+        <div id="terminal-lines" class="space-y-1 h-14 overflow-hidden flex flex-col justify-end">
+          <div class="text-orange-400">&gt; boto3.s3.ingest("s3://raw-bronze/transactions/*")</div>
+        </div>
+      </div>
+
+      <!-- Center: Storage Footprint Reduction Bar -->
+      <div class="flex flex-col items-center">
+        <div class="flex justify-between w-full max-w-xs mono text-xs mb-1.5">
+          <span class="text-zinc-500">STORAGE FOOTPRINT REDUCTION</span>
+          <span id="compression-val" class="text-amber-400 font-semibold">0%</span>
+        </div>
+        <div class="w-full max-w-xs h-2 bg-zinc-900 rounded-full overflow-hidden border border-zinc-800 p-0.5">
+          <div id="compression-bar" class="h-full bg-gradient-to-r from-orange-500 via-amber-400 to-emerald-400 rounded-full w-0 transition-all duration-150"></div>
+        </div>
+        <div class="mono text-[10px] text-zinc-500 mt-1.5">FORMAT: <span id="format-label" class="text-zinc-300">RAW CSV / JSON</span></div>
+      </div>
+
+      <!-- Right: High-Speed Record Counter -->
+      <div class="text-right">
+        <div class="mono text-xs text-zinc-500 uppercase tracking-widest">THROUGHPUT PROCESSED</div>
+        <div class="mono text-4xl md:text-5xl font-bold text-white tracking-tight mt-0.5">
+          <span id="records-val">0</span>
+        </div>
+        <div class="mono text-[11px] text-amber-400">560,000+ RECORD LAKEHOUSE · RITWIK ALA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       TOP NAVIGATION BAR
+       ========================================== -->
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a class="wordmark" href="#top">Ritwik Ala<span class="dot-amber">.</span></a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#journey">Journey</a>
+        <a href="#capabilities">Architecture</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="nav-cv" id="replayIntroNav" type="button" title="Replay 10-second Refinery Intro" style="margin-right: -4px;">
+        ↻ Replay Intro
+      </button>
+      <a class="nav-cv" href="./Ritwik_Ala_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       MAIN EDITORIAL BODY
+       ========================================== -->
+  <main id="top">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-meta">
+          <span>Data Engineer · Cloud Lakehouse Architect</span>
+          <span class="now" id="now" hidden></span>
+        </div>
+        <h1 class="hero-name">Ritwik Ala<span class="dot-amber">.</span></h1>
+        <div class="hero-foot">
+          <p class="hero-statement">
+            I architect cloud data platforms that <em>turn raw data chaos into pure gold</em>, and the analytics pipelines that drive decisions.
+          </p>
+          <div class="hero-side">
+            <p>
+              Medallion Lakehouses with PySpark, Databricks, and AWS S3, on a database foundation of MySQL, Athena, and Airflow. Computer Science (Data Analytics) undergraduate at VIT-AP and AWS Certified Data Engineer – Associate.
+            </p>
+            <div class="hero-links">
+              <a class="link-arrow" href="#work">Selected Work</a>
+              <a class="link-arrow" href="#capabilities">Architecture &amp; Stack</a>
+              <a class="link-arrow" href="https://www.linkedin.com/in/avv-ritwik-b90046382/" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="link-arrow" href="https://github.com/ritwik-byt" target="_blank" rel="noopener">GitHub</a>
+              <a class="link-arrow" href="https://leetcode.com/u/AlaRitwik/" target="_blank" rel="noopener">LeetCode</a>
+              <a class="link-arrow" href="./Ritwik_Ala_Resume.pdf" target="_blank" rel="noopener">Download Resume</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <dl class="facts">
+          <div>
+            <dt>Specialization</dt>
+            <dd>Medallion Lakehouses · Big Data</dd>
+          </div>
+          <div>
+            <dt>University</dt>
+            <dd>VIT-AP University <span class="accent">(CGPA 8.68)</span></dd>
+          </div>
+          <div>
+            <dt>Certification</dt>
+            <dd class="accent">AWS Data Engineer – Assoc.</dd>
+          </div>
+          <div>
+            <dt>Scale Shipped</dt>
+            <dd>560K+ Records · <span class="accent">79% Saved</span></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Selected Work Showcase -->
+    <section class="section" id="work">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">Selected Engineering Work</p>
+          <h2 class="section-title">Pipelines built for <em>scale and low cost.</em></h2>
+          <p class="section-note">End-to-end data lakehouses, distributed PySpark compute, Star Schemas, and financial analytics.</p>
+        </header>
+
+        <div class="showcase">
+          <div class="featured" id="featured"></div>
+          <div class="screen-col" aria-hidden="true">
+            <figure class="screen" id="screen">
+              <div class="screen-frame" id="screenFrame" title="Click to visit live demo">
+                <i class="scanline"></i>
+              </div>
+              <figcaption>
+                <span id="screenIdx">01 / 02</span>
+                <span id="screenUrl"></span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="archive">
+          <p class="eyebrow">Earlier Pipelines &amp; Systems</p>
+          <div class="archive-list" id="archive"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Engineering Journey -->
+    <section class="section" id="journey">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">Engineering Trajectory</p>
+          <h2 class="section-title">Milestones in <em>data architecture.</em></h2>
+          <p class="section-note">Tracking progression from academic foundations to enterprise cloud lakehouses and AWS certifications.</p>
+        </header>
+
+        <div class="journey">
+          <div class="journey-map">
+            <figure class="map">
+              <svg viewBox="0 0 1000 500" role="img" aria-label="Data pipeline route outline; marker tracks active milestone">
+                <g fill="none" stroke-linejoin="round" stroke-linecap="round">
+                  <path class="trk trk-base" id="track" d="M150 420 L560 420 Q640 420 660 360 L700 240 Q718 182 776 182 L850 182 Q912 182 908 128 Q902 78 840 78 L530 78 Q478 78 458 118 Q440 160 388 160 L300 160 Q250 160 240 212 L232 256 Q222 302 170 302 Q100 302 92 362 Q86 420 150 420 Z"/>
+                  <path class="trk trk-done" id="driven"/>
+                </g>
+                <line class="trk-start" x1="186" y1="404" x2="186" y2="436"/>
+                <g id="corners"></g>
+                <g id="mapCar">
+                  <circle class="car-halo" r="16"/>
+                  <circle class="car-dot" r="6"/>
+                </g>
+              </svg>
+              <figcaption>
+                <span>Lakehouse Route</span>
+                <span id="mapNow">Start Pipeline</span>
+              </figcaption>
+            </figure>
+          </div>
+          <ol class="milestones" id="milestones"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Systems Capabilities & 3D Lakehouse Stage -->
+    <section class="section xr" id="capabilities">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">System Capabilities</p>
+          <h2 class="section-title">Four tiers of <em>a reliable data engine.</em></h2>
+          <p class="section-note">Deconstructed as a cloud lakehouse: distributed compute, columnar storage, dimensional modeling, and interactive serving.</p>
+        </header>
+      </div>
+
+      <div class="xr-track" id="xrTrack">
+        <div class="xr-stage" id="xrStage">
+          <canvas class="xr-canvas" id="xrCanvas" aria-hidden="true"></canvas>
+          <svg class="xr-lines" id="xrLines" aria-hidden="true">
+            <polyline id="xrLeader"/>
+            <circle id="xrPin" r="4"/>
+            <circle id="xrPinRing" r="12"/>
+          </svg>
+          <div class="wrap xr-ui">
+            <ol class="xr-cards" id="caps"></ol>
+            <ol class="xr-steps" id="xrSteps" aria-hidden="true"></ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="creds">
+          <div>
+            <span class="cred-k">Certification</span>
+            <span class="cred-v">AWS Certified Data Engineer – Associate · AWS Academy Cloud Architecting · Cloud Foundations</span>
+          </div>
+          <div>
+            <span class="cred-k">Education</span>
+            <span class="cred-v">B.Tech Computer Science &amp; Engineering (Data Analytics) · VIT-AP University (CGPA 8.68/10)</span>
+          </div>
+          <div>
+            <span class="cred-k">Objective</span>
+            <span class="cred-v">Seeking a Data Engineering Internship to build scalable cloud lakehouses, automated ETL DAGs, and optimized analytical platforms.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+      <div class="wrap">
+        <p class="eyebrow">Get in Touch</p>
+        <h2 class="contact-title">Let’s build <em>reliable data systems.</em></h2>
+        <div class="contact-mail">
+          <a class="mail" id="email" href="mailto:alaritwik@gmail.com">alaritwik@gmail.com</a>
+          <button class="copy" id="copyEmail" type="button">Copy</button>
+        </div>
+        <p class="contact-time">Andhra Pradesh, India · <span id="clock">IST</span> · +91 7032499365</p>
+        <div class="contact-links">
+          <a class="link-arrow" href="mailto:alaritwik@gmail.com">Email Me</a>
+          <a class="link-arrow" href="https://www.linkedin.com/in/avv-ritwik-b90046382/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="link-arrow" href="https://github.com/ritwik-byt" target="_blank" rel="noopener">GitHub</a>
+          <a class="link-arrow" href="https://leetcode.com/u/AlaRitwik/" target="_blank" rel="noopener">LeetCode</a>
+          <a class="link-arrow" href="./Ritwik_Ala_Resume.pdf" download="Ritwik_Ala_Resume.pdf">Download Resume (PDF)</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="foot">
+    <div class="wrap foot-inner">
+      <span>© 2026 Ritwik Ala · Data Engineer &amp; Cloud Lakehouse Architect</span>
+      <button class="replay" id="replayIntro" type="button">↻ Replay 10s Refinery Intro</button>
+      <span class="credit">Built with Vite, Three.js, Canvas WebGL &amp; Lenis</span>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
